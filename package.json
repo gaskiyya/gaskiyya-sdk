@@ -1,0 +1,59 @@
+{
+  "name": "@gaskiyya/bank-sdk",
+  "version": "0.1.0",
+  "description": "Connect your bank to Gaskiyya: register messages, receipts and calls, and work out message fingerprints the same way the registry does.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaskiyya/gaskiyya-sdk.git"
+  },
+  "homepage": "https://github.com/gaskiyya/gaskiyya-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/gaskiyya/gaskiyya-sdk/issues"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./hashing": {
+      "types": "./dist/hashing/index.d.ts",
+      "default": "./dist/hashing/index.js"
+    },
+    "./customer-tokens": {
+      "types": "./dist/customer/customer-token-issuer.d.ts",
+      "default": "./dist/customer/customer-token-issuer.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:live": "vitest run tests/live.test.ts",
+    "check:package": "npm run build && npm pack --dry-run && node scripts/check-package.mjs",
+    "prepublishOnly": "npm run typecheck && npm run test:coverage && npm run check:package"
+  },
+  "dependencies": {
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "^5.0.5",
+    "typescript": "~5.9.2",
+    "vitest": "^5.0.5"
+  }
+}
